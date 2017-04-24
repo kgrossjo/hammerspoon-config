@@ -1,7 +1,9 @@
 #
-require('vi')
+-- require('vi')
+
 require('wm')
 require('wf')
+require('vinav')
 
 --[[
 local hst = require('hs.tiling')
