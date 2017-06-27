@@ -1,7 +1,6 @@
 wfFilter = hs.window.filter.new()
 
 function wfShowWindowChooser()
-    -- wlist = hs.window.orderedWindows()
     wlist = wfFilter:getWindows()
     wtable = {}
     for i = 1, #wlist do
