@@ -1,9 +1,14 @@
 -- vinav.lua
 
+-- config
+vinavCmdThreshold = 0.4
+-- end config
+
 vinavCmdTime = 0
 vinavPreviousFlags = nil
 vinavNormalMode = false
 vinavModal = hs.hotkey.modal.new()
+vinavGModal = hs.hotkey.modal.new()
 vinavVisual = false
 vinavAlert = nil
 vinavCount = nil
@@ -17,7 +22,7 @@ function vinavEvent(event)
         if vinavIsCmdOnly(flags) and vinavIsNoFlag(vinavPreviousFlags) then
             vinavCmdTime = evTime
         elseif vinavIsNoFlag(flags) and vinavIsCmdOnly(vinavPreviousFlags) then
-            if evTime - vinavCmdTime < 0.3 then
+            if evTime - vinavCmdTime < vinavCmdThreshold then
                 vinavToggleNormalMode()
             end
             vinavCmdTime = 0
@@ -61,6 +66,17 @@ end
 function vinavExitNormalMode()
     vinavModal:exit()
     hs.alert.closeSpecific(vinavAlert)
+end
+
+function vinavEnterGMode()
+   hs.alert.closeSpecific(vinavAlert)
+   vinavAlert = hs.alert.show("Normal mode: g", true)
+   vinavGModal:enter()
+end
+
+function vinavExitGMode()
+   vinavGModal:exit()
+   hs.alert.closeSpecific(vinavAlert)
 end
 
 function vinavToggleNormalMode()
@@ -133,6 +149,14 @@ function vinavWordRight()
     end
 end
 
+function vinavBeginningOfLine()
+   hs.eventtap.keyStroke(vinavModifiers('cmd'), 'left')
+end
+
+function vinavEndOfLine()
+   hs.eventtap.keyStroke(vinavModifiers('cmd'), 'right')
+end
+
 function vinavAppend()
     hs.eventtap.keyStroke(vinavModifiers(), 'right')
     vinavExitNormalMode()
@@ -156,6 +180,11 @@ function vinavVisual()
     if vinavVisual then
         hs.alert.show("visual mode")
     end
+end
+
+function vinavCut()
+    hs.eventtap.keyStroke('cmd', 'x')
+    vinavVisual = false
 end
 
 function vinavCopy()
@@ -198,8 +227,10 @@ end
 
 function vinavIncrement(i)
     vinavCount = ( vinavCount or 0 )
-    vinavCount = vinavCount * 10
-    vinavCount = vinavCount + i
+    if vinavCount < 100 then
+	vinavCount = vinavCount * 10
+	vinavCount = vinavCount + i
+    end
     if vinavCountAlert then
         hs.alert.closeSpecific(vinavCountAlert)
     end
@@ -212,13 +243,16 @@ vinavModal:bind('', 'h', vinavLeft)
 vinavModal:bind('', 'delete', vinavLeft)
 vinavModal:bind('', 'l', vinavRight)
 vinavModal:bind('', 'space', vinavRight)
-vinavModal:bind('', 'g', vinavTop)
+vinavModal:bind('', 'g', vinavEnterGMode)
 vinavModal:bind('shift', 'g', vinavBottom)
 vinavModal:bind('', 'v', vinavVisual)
 vinavModal:bind('', 'i', vinavExitNormalMode)
 vinavModal:bind('', 'escape', vinavExitNormalMode)
+vinavModal:bind('shift', '6', vinavBeginningOfLine)
+vinavModal:bind('shift', '4', vinavEndOfLine)
 vinavModal:bind('', 'a', vinavAppend)
 vinavModal:bind('shift', 'a', vinavAppendEndOfLine)
+vinavModal:bind('', 'd', vinavCut)
 vinavModal:bind('', 'y', vinavCopy)
 vinavModal:bind('', 'p', vinavPaste)
 vinavModal:bind('', 'u', vinavUndo)
@@ -238,6 +272,25 @@ vinavModal:bind('', '6', function () vinavIncrement(6) end)
 vinavModal:bind('', '7', function () vinavIncrement(7) end)
 vinavModal:bind('', '8', function () vinavIncrement(8) end)
 vinavModal:bind('', '9', function () vinavIncrement(9) end)
+
+vinavGModal:bind('', 'h',
+		 function ()
+		     vinavBeginningOfLine()
+		     vinavExitGMode()
+		 end
+)
+vinavGModal:bind('', 'l',
+		 function ()
+		     vinavEndOfLine()
+		     vinavExitGMode()
+		 end
+)
+vinavGModal:bind('', 'g',
+		 function ()
+		     vinavTop()
+		     vinavExitGMode()
+		 end
+)
 
 vinav = hs.eventtap.new({
     hs.eventtap.event.types.flagsChanged,
