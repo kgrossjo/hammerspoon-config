@@ -1,6 +1,8 @@
+wfFilter = hs.window.filter.new()
 
 function wfShowWindowChooser()
-    wlist = hs.window.orderedWindows()
+    -- wlist = hs.window.orderedWindows()
+    wlist = wfFilter:getWindows()
     wtable = {}
     for i = 1, #wlist do
         local w = wlist[i]
@@ -9,14 +11,19 @@ function wfShowWindowChooser()
             ["id"] = w:id(),
         }
     end
-    wchoose = hs.chooser.new(wfSelect)
+    local cur = hs.window.focusedWindow()
+    wchoose = hs.chooser.new(function (w) wfSelect(w, cur) end)
     wchoose:choices(wtable)
     wchoose:show()
 end
 
-function wfSelect(w)
-    local window = hs.window.find(w.id)
-    window:focus()
+function wfSelect(w, fallback)
+    if not w then
+        fallback:focus()
+    else
+        local window = hs.window.find(w.id)
+        window:focus()
+    end
 end
 
-hs.hotkey.bind({'ctrl', 'alt', 'cmd'}, 'return', wfShowWindowChooser)
+hs.hotkey.bind({'cmd', 'alt'}, 'return', wfShowWindowChooser)
