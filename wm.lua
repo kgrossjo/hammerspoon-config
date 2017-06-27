@@ -154,9 +154,10 @@ wm:bind('', 's',
 )
 
 wm:bind('', 'r',
-    function()
-        hs.reload()
-    end
+	function()
+	    hs.alert.show("Reloading...")
+	    hs.reload()
+	end
 )
 
 wm:bind('', 'x',
