@@ -6,6 +6,7 @@ g/n - narrow/wide center
 o/p - large left/right
 m/c - maximized/centered
 a/b - left/right no resize
+1/2/3/4 - top l/r, bottom
 s   - next screen
 r   - reload
 x   - console
@@ -39,6 +40,38 @@ wm:bind('', 'l',
     function()
         local w = hs.window.focusedWindow()
         w:moveToUnit(hs.layout.right50)
+        wm:exit()
+    end
+)
+
+wm:bind('', '1',
+    function()
+        local w = hs.window.focusedWindow()
+        w:moveToUnit('[0,0 50x50]')
+        wm:exit()
+    end
+)
+
+wm:bind('', '2',
+    function()
+        local w = hs.window.focusedWindow()
+        w:moveToUnit('[50,0 50x50]')
+        wm:exit()
+    end
+)
+
+wm:bind('', '3',
+    function()
+        local w = hs.window.focusedWindow()
+        w:moveToUnit('[0,50 50x50]')
+        wm:exit()
+    end
+)
+
+wm:bind('', '4',
+    function()
+        local w = hs.window.focusedWindow()
+        w:moveToUnit('[50,50 50x50]')
         wm:exit()
     end
 )
@@ -86,7 +119,7 @@ wm:bind('', 'p',
 wm:bind('', 'c',
     function ()
         local w = hs.window.focusedWindow()
-        w:moveToUnit('[25,20 50x50]')
+        w:moveToUnit('[15,10 70x70]')
         wm:exit()
     end
 )
