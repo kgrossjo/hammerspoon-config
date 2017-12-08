@@ -116,6 +116,13 @@ function ()
 end
 )
 
+wm:bind('ctrl', 'o',
+    function ()
+        local w = hs.window.focusedWindow()
+        w:moveToUnit('[0,0 85x85]')
+        wm:exit()
+    end
+)
 
 wm:bind('', 'p',
     function ()
@@ -129,6 +136,14 @@ wm:bind('shift', 'p',
     function ()
         local w = hs.window.focusedWindow()
         w:moveToUnit('[30,0 70x100]')
+        wm:exit()
+    end
+)
+
+wm:bind('ctrl', 'p',
+    function ()
+        local w = hs.window.focusedWindow()
+        w:moveToUnit('[30,0 85x85]')
         wm:exit()
     end
 )
