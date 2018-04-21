@@ -1,7 +1,7 @@
 -- vinav.lua
 
 -- config
-vinavCmdThreshold = 0.4
+vinavCmdThreshold = 0.3
 -- end config
 
 vinavCmdTime = 0
@@ -22,7 +22,7 @@ function vinavEvent(event)
         if vinavIsCmdOnly(flags) and vinavIsNoFlag(vinavPreviousFlags) then
             vinavCmdTime = evTime
         elseif vinavIsNoFlag(flags) and vinavIsCmdOnly(vinavPreviousFlags) then
-            if evTime - vinavCmdTime < vinavCmdThreshold then
+            if evTime - vinavCmdTime < vinavCmdThreshold and evTime - vinavCmdTime > 0.001 then
                 vinavToggleNormalMode()
             end
             vinavCmdTime = 0
