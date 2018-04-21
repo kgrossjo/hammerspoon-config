@@ -7,13 +7,15 @@ o/p - large left/right
 m/c - maximized/centered
 a/b - left/right no resize
 1/2/3/4 - top l/r, bottom
-s   - next screen
+s/B - next screen / bluetooth
 r   - reload
 x   - console
 ]]
 wmp = {
     alert = nil,
 }
+bluetooth = require("hs._asm.undocumented.bluetooth")
+
 
 function wm:entered()
     if wmp.alert then
@@ -214,6 +216,19 @@ wm:bind('', 's',
             nextScreenIdx = 1
         end
         w:moveToScreen(ss[nextScreenIdx], false, true)
+        wm:exit()
+    end
+)
+
+wm:bind('shift', 'b',
+    function ()
+        local b = bluetooth.power()
+        if b then
+            hs.alert.show("Turning Bluetooth off")
+        else
+            hs.alert.show("Turning Bluetooth on")
+        end
+        bluetooth.power(not b)
         wm:exit()
     end
 )
