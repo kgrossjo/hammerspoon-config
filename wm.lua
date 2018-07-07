@@ -8,8 +8,8 @@ m/c - maximized/centered
 a/b - left/right no resize
 1/2/3/4 - top l/r, bottom
 s/B - next screen / bluetooth
-r   - reload
-x   - console
+r/x - reload / console
+spc/ret - finder / terminal
 ]]
 wmp = {
     alert = nil,
@@ -243,6 +243,20 @@ wm:bind('', 'r',
 wm:bind('', 'x',
     function()
         hs.openConsole()
+        wm:exit()
+    end
+)
+
+wm:bind('', 'space',
+    function()
+        hs.application.open('Finder')
+        wm:exit()
+    end
+)
+
+wm:bind('', 'return',
+    function()
+        hs.application.open('Terminal')
         wm:exit()
     end
 )
