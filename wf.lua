@@ -5,8 +5,9 @@ function wfShowWindowChooser()
     wtable = {}
     for i = 1, #wlist do
         local w = wlist[i]
+        local wapp = w:application()
         wtable[i] = {
-            ["text"] = w:title(),
+            ["text"] = "[" .. wapp:title() .. "] " .. w:title(),
             ["id"] = w:id(),
         }
     end
