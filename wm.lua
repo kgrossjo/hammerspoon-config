@@ -1,15 +1,16 @@
 wm = hs.hotkey.modal.new('ctrl-alt-cmd', 'space')
 wmtext = [[
 Window Manager
-h/l - left/right half
-g/n - narrow/wide center
-o/p - large left/right
-m/c - maximized/centered
-a/b - left/right no resize
+h/l     - left/right half
+g/n     - narrow/wide center
+o/p     - large left/right
+m/c     - maximized/centered
+a/b     - left/right no resize
 1/2/3/4 - top l/r, bottom
-s   - next screen
-r   - reload
-x   - console
+.       - minimize
+s       - next screen
+spc/ret - terminal/finder
+r/x     - reload/console
 ]]
 wmp = {
     alert = nil,
@@ -27,6 +28,14 @@ function wm:exited()
     end
     wmp.alert = nil
 end
+
+wm:bind('', '.',
+    function()
+        local w = hs.window.focusedWindow()
+        w:minimize()
+        wm:exit()
+    end
+)
 
 wm:bind('', 'h', 
     function() 
@@ -218,9 +227,23 @@ wm:bind('', 's',
     end
 )
 
+wm:bind('', 'space',
+    function ()
+        hs.application.open('Terminal')
+        wm:exit()
+    end
+)
+
+wm:bind('', 'return',
+    function ()
+        hs.application.open('Finder')
+        wm:exit()
+    end
+)
+
 wm:bind('', 'r',
 	function()
-	    hs.alert.show("Reloading...")
+        hs.alert.show("Reloading...")
 	    hs.reload()
 	end
 )
@@ -233,6 +256,12 @@ wm:bind('', 'x',
 )
 
 wm:bind('', 'escape',
+    function()
+        wm:exit()
+    end
+)
+
+wm:bind('ctrl-alt-cmd', 'space',
     function()
         wm:exit()
     end
