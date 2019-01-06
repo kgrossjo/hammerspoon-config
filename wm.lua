@@ -1,15 +1,15 @@
 wm = hs.hotkey.modal.new('ctrl-alt-cmd', 'space')
 wmtext = [[
 Window Manager
-h/l - left/right half
-g/n - narrow/wide center
-o/p - large left/right
-m/c - maximized/centered
-a/b - left/right no resize
+h/l     - left/right half
+g/n     - narrow/wide center
+o/p     - large left/right
+m/c     - maximized/centered
+a/b     - left/right no resize
 1/2/3/4 - top l/r, bottom
-s/B - next screen / bluetooth
-r/x - reload / console
-spc/ret - finder / terminal
+s/B     - next screen / bluetooth
+r/x     - reload / console
+spc/ret - terminal / finder
 ]]
 wmp = {
     alert = nil,
@@ -247,14 +247,14 @@ wm:bind('', 'x',
     end
 )
 
-wm:bind('', 'space',
+wm:bind('', 'return',
     function()
         hs.application.open('Finder')
         wm:exit()
     end
 )
 
-wm:bind('', 'return',
+wm:bind('', 'space',
     function()
         hs.application.open('Terminal')
         wm:exit()
