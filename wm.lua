@@ -7,7 +7,7 @@ o/p     - large left/right
 m/c     - maximized/centered
 a/b     - left/right no resize
 1/2/3/4 - top l/r, bottom
-s/B     - next screen / bluetooth
+s/B/S   - next scr. / bluet. / sleep
 r/x     - reload / console
 spc/ret - terminal / finder
 ]]
@@ -230,6 +230,12 @@ wm:bind('shift', 'b',
         end
         bluetooth.power(not b)
         wm:exit()
+    end
+)
+
+wm:bind('shift', 's',
+    function ()
+        hs.caffeinate.systemSleep()
     end
 )
 
