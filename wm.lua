@@ -30,6 +30,14 @@ function wm:exited()
     wmp.alert = nil
 end
 
+wm:bind('', '.',
+    function()
+        local w = hs.window.focusedWindow()
+        w:minimize()
+        wm:exit()
+    end
+)
+
 wm:bind('', 'h', 
     function() 
         local w = hs.window.focusedWindow()
@@ -241,7 +249,7 @@ wm:bind('shift', 's',
 
 wm:bind('', 'r',
 	function()
-	    hs.alert.show("Reloading...")
+        hs.alert.show("Reloading...")
 	    hs.reload()
 	end
 )
@@ -268,6 +276,12 @@ wm:bind('', 'space',
 )
 
 wm:bind('', 'escape',
+    function()
+        wm:exit()
+    end
+)
+
+wm:bind('ctrl-alt-cmd', 'space',
     function()
         wm:exit()
     end

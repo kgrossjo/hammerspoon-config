@@ -208,6 +208,11 @@ function vinavDelete()
     vinavVisual = false
 end
 
+function vinavBackspace()
+    hs.eventtap.keyStroke('', 'delete')
+    vinavVisual = false
+end
+
 function vinavAppendLine()
     hs.eventtap.keyStroke('cmd', 'right')
     hs.eventtap.keyStroke('', 'return')
@@ -241,7 +246,7 @@ end
 vinavModal:bind('', 'j', vinavDown)
 vinavModal:bind('', 'k', vinavUp)
 vinavModal:bind('', 'h', vinavLeft)
-vinavModal:bind('', 'delete', vinavLeft)
+-- vinavModal:bind('', 'delete', vinavLeft)
 vinavModal:bind('', 'l', vinavRight)
 vinavModal:bind('', 'space', vinavRight)
 vinavModal:bind('', 'g', vinavEnterGMode)
@@ -258,6 +263,7 @@ vinavModal:bind('', 'y', vinavCopy)
 vinavModal:bind('', 'p', vinavPaste)
 vinavModal:bind('', 'u', vinavUndo)
 vinavModal:bind('', 'x', vinavDelete)
+vinavModal:bind('shift', 'x', vinavBackspace)
 vinavModal:bind('', 'b', vinavWordLeft)
 vinavModal:bind('', 'w', vinavWordRight)
 vinavModal:bind('', 'o', vinavAppendLine)
