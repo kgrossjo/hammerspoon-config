@@ -9,7 +9,7 @@ a/b     - left/right no resize
 1/2/3/4 - top l/r, bottom
 s/B/S   - next scr. / bluet. / sleep
 r/x     - reload / console
-spc/ret - terminal / finder
+spc/ret - iTerm / finder
 ]]
 wmp = {
     alert = nil,
@@ -93,11 +93,25 @@ wm:bind('', 'g',
         wm:exit()
     end
 )
+wm:bind('', 't',
+	function()
+		local w = hs.window.focusedWindow()
+		w:moveToUnit('[0,0 40x70]')
+	end
+)
 
 wm:bind('', 'n',
     function()
         local w = hs.window.focusedWindow()
         w:moveToUnit('[15,0 70x100]')
+        wm:exit()
+    end
+)
+
+wm:bind('shift', 'n',
+    function()
+        local w = hs.window.focusedWindow()
+        w:moveToUnit('[10,0 80x100]')
         wm:exit()
     end
 )
@@ -113,7 +127,7 @@ wm:bind('', 'm',
 wm:bind('', 'o', 
     function ()
         local w = hs.window.focusedWindow()
-        w:moveToUnit('[0,0 85x100]')
+        w:moveToUnit('[0,0 80x100]')
         wm:exit()
     end
 )
@@ -137,7 +151,7 @@ wm:bind('ctrl', 'o',
 wm:bind('', 'p',
     function ()
         local w = hs.window.focusedWindow()
-        w:moveToUnit('[15,0 85x100]')
+        w:moveToUnit('[20,0 80x100]')
         wm:exit()
     end
 )
@@ -270,7 +284,7 @@ wm:bind('', 'return',
 
 wm:bind('', 'space',
     function()
-        hs.application.open('Terminal')
+        hs.application.open('iTerm')
         wm:exit()
     end
 )
