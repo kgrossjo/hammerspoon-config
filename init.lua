@@ -1,7 +1,5 @@
-#
-
 require('wm')
 require('wf')
-require('vinav')
+-- require('vinav')
 
 hs.alert.show("Initialized")
