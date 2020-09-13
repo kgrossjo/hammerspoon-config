@@ -1,10 +1,10 @@
-wm = hs.hotkey.modal.new('ctrl-alt-cmd', 'space')
+wm = hs.hotkey.modal.new('alt', 'space')
 wmtext = [[
 Window Manager
 h/l     - left/right half
 g/n     - narrow/wide center
 o/p     - large left/right
-m/c     - maximized/centered
+m/c/t/T - max/ctr/terminal/chat
 a/b     - left/right no resize
 1/2/3/4 - top l/r, bottom
 s/B/S   - next scr. / bluet. / sleep
@@ -96,8 +96,16 @@ wm:bind('', 'g',
 wm:bind('', 't',
 	function()
 		local w = hs.window.focusedWindow()
-		w:moveToUnit('[0,0 40x70]')
+        w:moveToUnit('[0,0 40x70]')
+        wm:exit()
 	end
+)
+wm:bind('shift', 't',
+    function()
+        local w = hs.window.focusedWindow()
+        w:moveToUnit('[0,30 45x70]')
+        wm:exit()
+    end
 )
 
 wm:bind('', 'n',
@@ -285,6 +293,13 @@ wm:bind('', 'return',
 wm:bind('', 'space',
     function()
         hs.application.open('iTerm')
+        wm:exit()
+    end
+)
+
+wm:bind('', 'w',
+    function()
+        hs.application.open('Safari')
         wm:exit()
     end
 )
