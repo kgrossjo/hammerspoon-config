@@ -4,7 +4,10 @@ vip = {
 }
 
 function vi:entered()
-    vip.viAlert = hs.alert.show("Normal", true)
+    vip.viAlert = hs.alert.show("Normal", {
+        atScreenEdge = 2,
+        radius = 10
+    }, true)
 end
 function vi:exited()
     if vip.viAlert then
