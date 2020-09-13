@@ -1,10 +1,10 @@
-vi = hs.hotkey.modal.new('alt', 'space')
+vi = hs.hotkey.modal.new('', 'f20')
 vip = {
     selectMode = false
 }
 
 function vi:entered()
-    vip.viAlert = hs.alert.show("vi", true)
+    vip.viAlert = hs.alert.show("Normal", true)
 end
 function vi:exited()
     if vip.viAlert then
@@ -71,7 +71,7 @@ function vi:undo()
 end
 
 vi:bind('', 'escape', function() vi.escape() end)
-vi:bind('alt', 'space', function() vi.escape() end)
+vi:bind('', 'f20', function() vi.escape() end)
 vi:bind('', 'i', function() vi.escape() end)
 vi:bind('', 'j', function() vi.down() end)
 vi:bind('', 'k', function() vi.up() end)
