@@ -86,6 +86,42 @@ wm:bind('', '4',
     end
 )
 
+wm:bind('', '5',
+    function()
+        local w = hs.window.focusedWindow()
+        w:moveToUnit('[0,0 33x100]')
+        wm:exit()
+    end
+)
+wm:bind('', '6',
+    function()
+        local w = hs.window.focusedWindow()
+        w:moveToUnit('[33,0 33x100]')
+        wm:exit()
+    end
+)
+wm:bind('', '7',
+    function()
+        local w = hs.window.focusedWindow()
+        w:moveToUnit('[66,0 33x100]')
+        wm:exit()
+    end
+)
+wm:bind('', '8',
+    function()
+        local w = hs.window.focusedWindow()
+        w:moveToUnit('[0,0 66x100]')
+        wm:exit()
+    end
+)
+wm:bind('', '9',
+    function()
+        local w = hs.window.focusedWindow()
+        w:moveToUnit('[34,0 66x100]')
+        wm:exit()
+    end
+)
+
 wm:bind('', 'g',
     function()
         local w = hs.window.focusedWindow()
